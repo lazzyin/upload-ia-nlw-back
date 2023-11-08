@@ -1,0 +1,41 @@
+# @name get-prompts
+GET http://localhost:3333/prompts
+
+###
+
+# @name list-prompts
+GET http://localhost:3333/prompts
+
+###
+
+# @name upload
+POST http://localhost:3333/videos
+Content-Type: multipart/form-data; boundary=----teste
+
+------teste
+Content-Disposition: form-data; name="file"; filename="example.mp3"
+Content-Type: audio/mpeg
+
+< ./example.mp3
+------teste--
+
+###
+
+# @name create-transcription
+POST http://localhost:3333/videos/082f5ada-c8d2-4a58-8df0-492f8e53b7ab/transcription
+Content-Type: application/json
+
+{
+    "prompt":"Meridiano de sangue,O Juiz, Especimes"
+}
+
+### 
+# @name generate-ai-completion
+POST http://localhost:3333/ai/complete
+Content-Type: application/json
+
+{
+    "videoId":"082f5ada-c8d2-4a58-8df0-492f8e53b7ab",
+    "temperature":0.5,
+    "prompt":"Gere um resumo da transcrição do video a seguir: '''{transcription}"
+}
